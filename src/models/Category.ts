@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import Transaction from './Transaction';
+
 
 @Entity('categories')
 class Category {
@@ -11,11 +13,18 @@ class Category {
   @Column()
   title: string;
 
+  @OneToMany(() => Transaction, transaction => transaction.category)
+  transaction: Transaction;
+
   @CreateDateColumn()
   created_at: Date;
 
   @UpdateDateColumn()
   updated_at: Date;
+
+
 }
+
+
 
 export default Category;
